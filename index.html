@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo Location</title>
+    <style>
+        input{
+            /* height:30px; */
+            font-size: 30px;
+        }
+        button{
+            font-size: 30px;
+            border:none;
+            background-color: rgb(170, 170, 170);
+            font-weight: 200;
+            color:whitesmoke;
+        }
+    </style>
+</head>
+<body>
+   <!-- <form method="POST" action="/enterShop"> -->
+        <input type="text" id="title" placeholder="Title" name="title" value="">
+        <input type="text" id="longitude" placeholder="Longitude" name="longitude" value="">
+        <input type="text" id="latitude" placeholder="Latitude" name="latitude" value="" >
+        <button onclick="handleClick()">Submit</button> 
+
+       <script>
+
+const handleClick=async()=>{
+     const title = document.getElementById("title").value;
+     const latitude = document.getElementById("latitude");
+    const longitude = document.getElementById("longitude");
+
+    if('geolocation' in navigator)
+    {
+     await navigator.geolocation.getCurrentPosition(function(position)
+        {
+            const long = position.coords.longitude;
+            const lat = position.coords.latitude;
+             longitude.value = long;
+             latitude.value = lat; 
+            console.log(long);
+            console.log(lat);
+            const data = {lat,long,title};
+        //     const options = {
+        //         method:'POST',
+        //         headers:{
+        //             'Content-Type':'application/json'
+        //         },
+        //         body:JSON.stringify(data)
+        //     };
+        //     fetch('/shops',options);            
+     })
+    }
+    else{
+        console.log('geoLocation not available')
+    }
+    console.log(title);
+}
+
+</script>
+</body>
+</html>
